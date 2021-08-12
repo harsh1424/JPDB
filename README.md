@@ -22,7 +22,8 @@ Easy and fast to develop database applications without using any server side pro
 * Nimble, Simple to use, In Memory, Real-time DBMS.
 
 ## Screenshots
-![](screenshots/Screenshot20%1.png)
+![](screenshots/Screenshot%201.png)
+![](screenshots/Screenshot%202.png)
 
 
 
