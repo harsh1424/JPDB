@@ -4,36 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <script src="http://login2explore.com/jpdb/resources/js/0.0.3/jpdb-commons.js"></script>
     <title>JPDB form</title>
 </head>
 
 <body>
     <div class="container mt-4 pt-4 pb-4 border border-dark">
+        <h2>Basic form whose data saved in JPDB</h2>
         <form id="empForm" method="post">
             <div class="form-group ">
                 <label for="empId">Employee ID</label>
-                <input type="text" class="form-control" id="empId">
+                <input type="text" class="form-control" name="empId" id="empId">
             </div>
             <div class="form-group">
                 <label for="empName">Employee Name</label>
-                <input type="text" class="form-control" id="empName">
+                <input type="text" class="form-control" name="empName" id="empName">
             </div>
             <div class="form-group">
                 <label for="empEmail">Employee Email</label>
-                <input type="email" class="form-control" id="empEmail" placeholder="name@example.com">
+                <input type="email" class="form-control" id="empEmail" name="empEmail" placeholder="name@example.com">
             </div>
             <div class="form-group text-center">
-                <button type="button" class="btn btn-primary" onclick="validateAndGetFormData()">Submit</button>
+                <button type="button" id="empSave" value="save" class="btn btn-primary"
+                    onclick="saveEmployee()">Submit</button>
                 <button type="button" class="btn btn-primary" onclick="formReset()">Cancel</button>
             </div>
 
@@ -42,6 +40,8 @@
     </div>
 
     <script>
+
+
         $("#empId").focus();
         function validateAndGetFormData() {
             var empIdVar = $("#empId").val();
@@ -77,22 +77,29 @@
             $("#empId").focus()
         }
 
+
+
+
+
+
+
         function saveEmployee() {
+
+
             var jsonStr = validateAndGetFormData();
             if (jsonStr === "") {
                 return;
             }
-
-            var putRequestStr = createPutRequest("90936279|-31948850880241768|90945348", jsonStr, "Form_Data", "Emp-Rel");
+            var putRequestStr = createPUTRequest("90936279|-31948850880241768|90945348", jsonStr, "Form_Data", "Emp-Rel");
 
             alert(putRequestStr);
             jQuery.ajaxSetup({ async: false });
-            var resultObj = executeCommandAtGivenBaseUrl(putReqStr,
+            var resultObj = executeCommandAtGivenBaseUrl(putRequestStr,
                 "http://api.login2explore.com:5577", "/api/iml");
             alert(JSON.stringify(resultObj));
             jQuery.ajaxSetup({ async: true });
 
-
+            formReset();
         }
 
 
@@ -103,3 +110,13 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
